@@ -1,2 +1,4 @@
 # Unity-AI
- Unity AI Controller Prototype
+
+* NavMesh
+* AI Character Controller
