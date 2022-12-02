@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CheckCollisions : MonoBehaviour
 {
-    public CollectCoin collectCoin;
-	public PlayerController playerController;
 	public GameObject RestartPanel;
+	public PlayerController playerController;
 
 	public void RestartGame()
 	{
@@ -16,35 +15,19 @@ public class CheckCollisions : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("coin"))
-		{
-            collectCoin.AddCoin();
-            Destroy(other.gameObject);
-		}
-		if (other.CompareTag("finish"))
-		{
-			if (collectCoin.score >= 54)
-			{
-				playerController.runningSpeed = 0f;
-				playerController.PlayerAnim.SetBool("win", true);
-				transform.Rotate(transform.rotation.x, 180, transform.rotation.z, Space.Self);
-				RestartPanel.SetActive(true);
-			}
-			else
-			{
-				playerController.runningSpeed = 0f;
-				playerController.PlayerAnim.SetBool("lose", true);
-				transform.Rotate(transform.rotation.x, 180, transform.rotation.z, Space.Self);
-				RestartPanel.SetActive(true);
-			}
-		}
+
+		playerController.runningSpeed = 0f;
+		//playerController.PlayerAnim.SetBool("win", true);
+		transform.Rotate(transform.rotation.x, 180, transform.rotation.z, Space.Self);
+		RestartPanel.SetActive(true);
+	
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.collider.CompareTag("obstacle"))
+		if (collision.collider.CompareTag("Obstacle"))
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
 
