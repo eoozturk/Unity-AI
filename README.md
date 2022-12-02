@@ -1,5 +1,6 @@
 # Unity-AI
 
 * NavMesh
-* AI Character Controller
+* NavMesh Obstacle
 * Ranking System
+* AI Character Controller
