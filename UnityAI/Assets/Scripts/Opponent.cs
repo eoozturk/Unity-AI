@@ -9,6 +9,7 @@ public class Opponent : MonoBehaviour
     Vector3 opponentStartPos;
     public GameObject target, sBoostController;
     public NavMeshAgent opponentAgent;
+    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +19,14 @@ public class Opponent : MonoBehaviour
     }
 
     // Update is called once per frame
+    [System.Obsolete]
     void Update()
     {
         opponentAgent.SetDestination(target.transform.position);
+        if (gameManager.isGameOver)
+        {
+            opponentAgent.Stop();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

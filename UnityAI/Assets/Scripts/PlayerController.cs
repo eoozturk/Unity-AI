@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
     public float runningSpeed;
-    public float xSpeed;
-    public float limitx;
+    public float xSpeed, limitx;
 
     public Animator PlayerAnim;
     public GameObject Player;
 
     void Start()
     {
+        runningSpeed = 5.0f;
         PlayerAnim = Player.GetComponentInChildren<Animator>();
     }
 

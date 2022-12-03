@@ -10,10 +10,14 @@ public class CheckCollisions : MonoBehaviour
 	public GameObject RestartPanel, sBoostController;
 	public PlayerController playerController;
 
+	public GameManager gameManager;
+	private InGameRanking ig;
+
     private void Start()
     {
 		playerStartPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-    }
+		ig = FindObjectOfType<InGameRanking>();
+	}
 
     public void RestartGame()
 	{
@@ -24,10 +28,18 @@ public class CheckCollisions : MonoBehaviour
 	{
         if (other.CompareTag("End"))
         {
-			playerController.runningSpeed = 0f;
-			//playerController.PlayerAnim.SetBool("win", true);
-			transform.Rotate(transform.rotation.x, 180, transform.rotation.z, Space.Self);
-			RestartPanel.SetActive(true);
+			PlayerFinished();
+			if (ig.nameTexts[6].text == "Player")
+			{
+				playerController.PlayerAnim.SetBool("win", true);
+				transform.Rotate(transform.rotation.x, 180, transform.rotation.z, Space.Self);
+			}
+            else
+            {
+				playerController.PlayerAnim.SetBool("lose", true);
+				transform.Rotate(transform.rotation.x, 180, transform.rotation.z, Space.Self);
+			}
+			
 		}
 		if (other.CompareTag("SpeedBoost"))
 		{
@@ -35,6 +47,14 @@ public class CheckCollisions : MonoBehaviour
 			playerController.runningSpeed = playerController.runningSpeed + speedBoost;
 			StartCoroutine(SpeedBoostControl());
 		}
+	}
+
+	void PlayerFinished()
+    {
+		playerController.runningSpeed = 0f;
+		RestartPanel.SetActive(true);
+		gameManager.isGameOver = true;
+		
 	}
 
 	private void OnCollisionEnter(Collision collision)
